@@ -5,6 +5,7 @@ import (
 	"github.com/jmoiron/sqlx"
 	_ "github.com/go-sql-driver/mysql"
 	"fmt"
+	"strings"
 )
 
 type ShopController struct {
@@ -83,5 +84,62 @@ func (this *ShopController) GetCartList() {
 	}
 
 	this.Data["json"] = cartList
+	this.ServeJSON()
+}
+
+
+/**
+ 获取购物车中，选中下单的商品信息
+ */
+func (this *ShopController) BuyCart() {
+	// 1,2,3,  接收参数，移除两边的逗号
+	cardIds := strings.Trim(this.GetString("card_id"), ",")
+	uid, err := this.GetInt("uid")
+	if cardIds == "" || err != nil {
+		fmt.Println("参数为空")
+		return
+	}
+
+	var cartList []CartList
+	err = Db.Select(&cartList, "select c.id, c.num, uid, pid, c.price, p.photo_little, " +
+		"p.`name` pro_name from m_cart c left join m_product p ON c.pid=p.id where uid = ? AND c.id IN (?)", uid,
+		cardIds)
+	if err != nil {
+		fmt.Println("get buy cart products: ", err)
+		return
+	}
+
+	this.Data["json"] = cartList
+	this.ServeJSON()
+}
+
+// type Product struct {
+// 	Id int `json:"id"`
+// 	Name string `json:"name"`
+// 	Price float64 `json:"price"`
+// 	Price_yh float64 `json:"price_yh"`
+// 	Photo_little string `json:"photo_little"`
+// 	Cid int `json:"cid"`
+// 	Num int `json:"num"`
+// }
+// 某个分类下的商品
+// cate_id int
+//
+func (this *ShopController) GetCateProductList() {
+	cateId, err := this.GetInt("cate_id")
+	if err != nil {
+		fmt.Println("参数不合法")
+		return
+	}
+	var Products []Product
+	err = Db.Select(&Products, "SELECT id,name,intro,price,price_yh,photo_little," +
+		"saledcount FROM m_product WHERE cid = ?",
+		cateId)
+
+	if err != nil {
+		fmt.Println("get Category Product List is Err : ", err)
+	}
+
+	this.Data["json"] = Products
 	this.ServeJSON()
 }
