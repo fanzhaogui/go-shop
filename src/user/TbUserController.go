@@ -3,10 +3,13 @@ package user
 import (
 	"net/http"
 	"encoding/json"
+	"shop/src/commons"
+	"fmt"
 )
 
 func UserHandler()  {
-	http.HandleFunc("/login", loginController)
+	// http.HandleFunc("/login", loginController)
+	commons.Router.HandleFunc("/login", loginController)
 }
 
 // 登录
@@ -16,6 +19,9 @@ func loginController(w http.ResponseWriter, r *http.Request)  {
 	// 响应
 	un := r.FormValue("username")
 	pwd := r.FormValue("password")
+	fmt.Println("do login: ", un, pwd)
+
+	// 数据库密码需要加密？ 查询是否要携带上密码
 	re := LoginService(un, pwd)
 	// 把结构体转为json数据
 	b, _ := json.Marshal(re)
