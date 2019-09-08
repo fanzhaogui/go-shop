@@ -8,6 +8,7 @@ import (
 	"shop/src/commons"
 	"shop/src/item"
 	"fmt"
+	"shop/src/item/cat"
 )
 
 // 显示登入页面
@@ -43,6 +44,8 @@ func main() {
 	user.UserHandler()
 	// 商品
 	item.ItemHandler()
+	// 类目
+	cat.CatHandler()
 
 	fmt.Println("http service start: 127.0.0.1:8088")
 	http.ListenAndServe(":8088", commons.Router)

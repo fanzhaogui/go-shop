@@ -7,11 +7,15 @@
     <link rel="stylesheet" type="text/css" href="/static/js/easyui/themes/icon.css">
     <script type="text/javascript" src="/static/js/jquery-1.7.2.js"></script>
     <script type="text/javascript" src="/static/js/easyui/jquery.easyui.min.js"></script>
+
+    <link rel="stylesheet" href="/static/js/kindeditor/themes/default/default.css" />
+    <script type="text/javascript" src="/static/js/kindeditor/kindeditor.js"></script>
+    <script type="text/javascript" src="/static/js/kindeditor/lang/zh_CN.js"></script>
     <script type="text/javascript">
         $(function () {
             $("#index_tree").tree({
                 onClick: function(node){
-                   if( $("#index_tree").tree("isLeaf",node.target)){
+                    if( $("#index_tree").tree("isLeaf",node.target)){
                         if($("#index_tabes").tabs("getTab",node.text)){
                             $("#index_tabes").tabs("select",node.text)
 
@@ -19,12 +23,19 @@
                             $('#index_tabes').tabs('add',{
                                 title: node.text,
                                 selected: true,
+                                closable:true,
                                 href:node.attributes.url
                             });
                         }
-                   }
+                    }
                 }
             });
+        });
+
+        //全局KindEditor对象
+        var K =null
+        KindEditor.ready(function(n) {
+            K=n
         });
     </script>
 </head>
