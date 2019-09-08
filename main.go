@@ -44,5 +44,6 @@ func main() {
 	// 商品
 	item.ItemHandler()
 
+	fmt.Println("http service start: 127.0.0.1:8088")
 	http.ListenAndServe(":8088", commons.Router)
 }

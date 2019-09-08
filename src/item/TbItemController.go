@@ -14,6 +14,8 @@ func ItemHandler()  {
 	// delete
 	commons.Router.HandleFunc("/item/delete", delByIdsController)
 	// 上架，下架
+	commons.Router.HandleFunc("/item/instock", instockByIdsController)
+	commons.Router.HandleFunc("/item/offstock", uninstockByIdsController)
 
 }
 
@@ -34,6 +36,30 @@ func delByIdsController(w http.ResponseWriter, r *http.Request) {
 	ids := r.FormValue("ids")
 
 	er := delByIdsService(ids)
+
+	b, _ := json.Marshal(er)
+
+	w.Header().Set("Content-Type", "application/json;charset=utf-8")
+	w.Write(b)
+}
+
+// 商品上架
+func instockByIdsController(w http.ResponseWriter, r *http.Request) {
+	ids := r.FormValue("ids")
+
+	er := instock(ids)
+
+	b, _ := json.Marshal(er)
+
+	w.Header().Set("Content-Type", "application/json;charset=utf-8")
+	w.Write(b)
+}
+
+// 商品下架
+func uninstockByIdsController(w http.ResponseWriter, r *http.Request) {
+	ids := r.FormValue("ids")
+
+	er := uninstock(ids)
 
 	b, _ := json.Marshal(er)
 

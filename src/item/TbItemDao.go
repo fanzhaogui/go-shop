@@ -45,6 +45,9 @@ func selCount() (count int)  {
 	return
 }
 
+/**
+返回值小于0，则表示失败
+ */
 func updateStatusByIdsDao(ids []string, status int) int {
 	if len(ids) <= 0 {
 		return -1
