@@ -14,7 +14,6 @@ func selByIdDao(id int) (t *TbItemCat) {
 	//
 	if rows.Next() {
 		t =new (TbItemCat)
-		// rows.Scan(&t)
 		rows.Scan(&t.Id,&t.ParentId,&t.Name,&t.Status,&t.SortOrder,&t.IsParent,&t.Created,&t.Updated)
 	}
 	return

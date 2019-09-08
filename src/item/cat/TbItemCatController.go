@@ -26,6 +26,6 @@ func ShowItemCatController(w http.ResponseWriter, r *http.Request)  {
 	t := showParentCatSercie(idInt)
 
 	b, _ := json.Marshal(t)
-	w.Header().Set("Content-type", "application/json;charset=utf-8")
+	w.Header().Set(commons.HEADER_CONTENT_TYPE, commons.JSON_HEADER)
 	w.Write(b)
 }

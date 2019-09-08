@@ -61,6 +61,8 @@
         itemAddEdit.loadPlugin('multiimage', function () {
             itemAddEdit.plugin.multiImageDialog({
                 clickFn: function (urlList) {
+                    console.log(typeof urlList)
+                    console.log(urlList)
                     $("#item_add_upload_span").html("");
                     var urls = "";
                     $.each(urlList, function (i, n) {

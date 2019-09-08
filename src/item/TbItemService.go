@@ -4,6 +4,8 @@ import (
 	"shop/src/commons"
 	"shop/src/item/cat"
 	"strings"
+	"mime/multipart"
+	"io/ioutil"
 )
 
 // 数据分页展示
@@ -78,3 +80,32 @@ func uninstock(ids string) (e commons.EgoResult) {
 	return
 }
 
+
+// 保存文件
+func imageUpdateService(f multipart.File, h *multipart.FileHeader) map[string]interface{}{
+	m := make(map[string]interface{})
+	b, err := ioutil.ReadAll(f)
+	if err != nil {
+		m["error"] = 1
+		m["message"] = "读取上传文件信息失败, err: " + err.Error()
+		return m
+	}
+
+	// 纳秒时间戳 + 随机数+ 扩展名
+	// rand.Seed(time.Now().UnixNano())
+	// fileName := strconv.Itoa(int(time.Now().UnixNano())) + strconv.Itoa(rand.Intn(1000))+ h.Filename[strings.
+	// 	LastIndex(h.Filename,
+	// 	"."):]
+	fileName := "static/images/" + commons.GenerateFileName(h.Filename[strings.LastIndex(h.Filename,"."):])
+	err = ioutil.WriteFile(fileName, b, 0777)
+	if err != nil {
+		m["error"] = 1
+		m["message"] = "保存文件时失败，err: " + err.Error()
+		return m
+	}
+
+	m["error"] = 0
+	m["url"] = commons.CurrentPath + fileName
+	return m
+
+}

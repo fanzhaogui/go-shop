@@ -26,6 +26,6 @@ func loginController(w http.ResponseWriter, r *http.Request)  {
 	// 把结构体转为json数据
 	b, _ := json.Marshal(re)
 
-	w.Header().Set("Content-Type", "application/json;charset=utf-8")
+	w.Header().Set(commons.HEADER_CONTENT_TYPE, commons.JSON_HEADER)
 	w.Write(b)
 }
