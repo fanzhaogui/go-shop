@@ -20,8 +20,19 @@ func ItemHandler()  {
 
 	// 图片上传
 	commons.Router.HandleFunc("/item/imageupload", imageUploadController)
+
+	commons.Router.HandleFunc("/item/add", insertController)
 }
 
+// 商品新增
+func insertController(w http.ResponseWriter, r *http.Request)  {
+	// 需要先解析
+	r.ParseForm()
+	res := insertTbItemService(r.Form)
+	b, _ := json.Marshal(res)
+	w.Header().Set(commons.HEADER_CONTENT_TYPE, commons.JSON_HEADER)
+	w.Write(b)
+}
 
 // 图片上传 - 前端在上传多文件时，其实是多次文件上传
 func imageUploadController(w http.ResponseWriter, r *http.Request)  {

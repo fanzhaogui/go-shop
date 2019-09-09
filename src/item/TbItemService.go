@@ -6,6 +6,10 @@ import (
 	"strings"
 	"mime/multipart"
 	"io/ioutil"
+	"net/url"
+	"strconv"
+	"time"
+	"shop/src/item/desc"
 )
 
 // 数据分页展示
@@ -108,4 +112,45 @@ func imageUpdateService(f multipart.File, h *multipart.FileHeader) map[string]in
 	m["url"] = commons.CurrentPath + fileName
 	return m
 
+}
+
+func insertTbItemService(f url.Values) (re commons.EgoResult) {
+	var item TbItem
+	id := commons.GenerateId()
+	item.Id = id
+	cid, _ := strconv.Atoi(f["Cid"][0])
+	price, _ := strconv.Atoi(f["Price"][0])
+	num, _ := strconv.Atoi(f["Num"][0])
+	date := time.Now().Format("2006-01-02 15:04:05")
+	item.Cid = cid
+	item.Title = f["Title"][0]
+	item.SellPoint = f["SellPoint"][0]
+	item.Price = price
+	item.Num = num
+	item.Image = f["Image"][0]
+	item.Updated = date
+	item.Created = date
+	item.Status = 1
+
+	count := insertItemDao(item)
+
+	if count > 0 {
+		// 添加商品描述
+		var descData desc.TbItemDesc
+		descData.ItemID = id
+		descData.ItemDesc = f["Desc"][0]
+		descData.Created = date
+		descData.Updated = date
+		count = desc.InsertItemDescDao(descData)
+		if count > 0 {
+			re.Status = 200
+		} else {
+			// 删除添加商品信息
+			delItemDao(id)
+			re.Status = 400
+		}
+	} else {
+		re.Status = 400
+	}
+	return re
 }

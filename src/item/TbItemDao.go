@@ -69,3 +69,24 @@ func updateStatusByIdsDao(ids []string, status int) int {
 	}
 	return int(count)
 }
+
+
+// 商品添加
+func insertItemDao(t TbItem) int {
+	count, err:= commons.Dml("insert into tb_item values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", t.Id, t.Title,t.SellPoint, t.Price, t.Num, t.Barcode, t.Image, t.Cid, t.Status, t.Created, t.Updated)
+
+	if err != nil {
+		fmt.Println("insert item err:", err)
+		return -1
+	}
+	return int(count)
+
+}
+
+func delItemDao(id int) int {
+	count, err := commons.Dml("delete from tb_item where id = ?", id)
+	if err != nil {
+		fmt.Println("del item err: ", err)
+	}
+	return int(count)
+}
