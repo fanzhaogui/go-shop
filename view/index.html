@@ -8,14 +8,15 @@
     <script type="text/javascript" src="/static/js/jquery-1.7.2.js"></script>
     <script type="text/javascript" src="/static/js/easyui/jquery.easyui.min.js"></script>
 
-    <link rel="stylesheet" href="/static/js/kindeditor/themes/default/default.css" />
+    <link rel="stylesheet" href="/static/js//kindeditor/themes/default/default.css" />
     <script type="text/javascript" src="/static/js/kindeditor/kindeditor.js"></script>
     <script type="text/javascript" src="/static/js/kindeditor/lang/zh_CN.js"></script>
+
     <script type="text/javascript">
         $(function () {
             $("#index_tree").tree({
                 onClick: function(node){
-                    if( $("#index_tree").tree("isLeaf",node.target)){
+                   if( $("#index_tree").tree("isLeaf",node.target)){
                         if($("#index_tabes").tabs("getTab",node.text)){
                             $("#index_tabes").tabs("select",node.text)
 
@@ -27,7 +28,7 @@
                                 href:node.attributes.url
                             });
                         }
-                    }
+                   }
                 }
             });
         });
@@ -59,11 +60,11 @@
         <li>
             <span>网站内容管理</span>
             <ul>
-                <li>
-                    <span  data-options="attributes:{'url':'/page/content_category'}">网站内容管理</span>
+                <li data-options="attributes:{'url':'/page/content_category'}">
+                    <span>网站内容管理</span>
                 </li>
-                <li>
-                    <span  data-options="attributes:{'url':'/page/content'}">内容管理</span>
+                <li data-options="attributes:{'url':'/page/content'}">
+                    <span>内容管理</span>
                 </li>
             </ul>
         </li>

@@ -27,25 +27,25 @@
                     onClick: function(node){
                         if(node.state=="open"){
                             $("#item_add_hiddenparam").hide();
-                            // $.post("/item/param/iscat", {"catid": node.id}, function (data) {
-                            //     if (data.status == 400) {
-                            //         $("#item_add_hiddenparam").show();
-                            //        var json= eval("("+data.Data+")");
-                            //        var paramString = "";
-                            //        for(var i = 0 ;i<json.length;i++){
-                            //            paramString+="<div class='item_add_groupname'>"+json[i].group+"</div>";
-                            //            paramString+="<ul>";
-                            //            for(var j=0;j<json[i].params.length;j++){
-                            //                paramString+="<li>"+json[i].params[j]+":<input type='text' sign='"+json[i].params[j]+"'/></li>";
-                            //            }
-                            //            paramString+="</ul>";
-                            //        }
-                            //        $("#item_add_param_td").html(paramString);
-                            //     }
+                            $.post("/item/param/iscat", {"catid": node.id}, function (data) {
+                                if (data.Status == 400) {
+                                    $("#item_add_hiddenparam").show();
+                                   var json= eval("("+data.Data+")");
+                                   var paramString = "";
+                                   for(var i = 0 ;i<json.length;i++){
+                                       paramString+="<div class='item_add_groupname'>"+json[i].group+"</div>";
+                                       paramString+="<ul>";
+                                       for(var j=0;j<json[i].params.length;j++){
+                                           paramString+="<li>"+json[i].params[j]+":<input type='text' sign='"+json[i].params[j]+"'/></li>";
+                                       }
+                                       paramString+="</ul>";
+                                   }
+                                   $("#item_add_param_td").html(paramString);
+                                }
                                 $("#item_add_selectcate_span").html(node.text);
                                 $("#item_add_selectcate_hidden").val(node.id);
                                 $('#item_add_dialog').dialog("close");
-                            // })
+                            })
                         }
                     }
                 });
@@ -61,8 +61,6 @@
         itemAddEdit.loadPlugin('multiimage', function () {
             itemAddEdit.plugin.multiImageDialog({
                 clickFn: function (urlList) {
-                    console.log(typeof urlList)
-                    console.log(urlList)
                     $("#item_add_upload_span").html("");
                     var urls = "";
                     $.each(urlList, function (i, n) {
@@ -146,11 +144,9 @@
         <tr>
             <td width="60px">商品类目:</td>
             <td><a id="item_add_selectcate" href="#" class="easyui-linkbutton">选择类目</a>&nbsp;<span
-                    id="item_add_selectcate_span"></span>
-                <input name="Cid" id="item_add_selectcate_hidden"
-                    class="easyui-validatebox" type="hidden"
-                    data-options="required:true"/>
-            </td>
+                    id="item_add_selectcate_span"></span><input name="Cid" id="item_add_selectcate_hidden"
+                                                                class="easyui-validatebox" type="hidden"
+                                                                data-options="required:true"/></td>
         </tr>
         <tr>
             <td>商品标题:</td>

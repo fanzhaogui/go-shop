@@ -100,7 +100,7 @@ func imageUpdateService(f multipart.File, h *multipart.FileHeader) map[string]in
 	// fileName := strconv.Itoa(int(time.Now().UnixNano())) + strconv.Itoa(rand.Intn(1000))+ h.Filename[strings.
 	// 	LastIndex(h.Filename,
 	// 	"."):]
-	fileName := "static/images/" + commons.GenerateFileName(h.Filename[strings.LastIndex(h.Filename,"."):])
+	fileName := commons.UPLOAD_IMAGE_BASE + commons.GenerateFileName(h.Filename[strings.LastIndex(h.Filename,"."):])
 	err = ioutil.WriteFile(fileName, b, 0777)
 	if err != nil {
 		m["error"] = 1
@@ -121,7 +121,7 @@ func insertTbItemService(f url.Values) (re commons.EgoResult) {
 	cid, _ := strconv.Atoi(f["Cid"][0])
 	price, _ := strconv.Atoi(f["Price"][0])
 	num, _ := strconv.Atoi(f["Num"][0])
-	date := time.Now().Format("2006-01-02 15:04:05")
+	date := time.Now().Format(commons.GetTimeLayout("min"))
 	item.Cid = cid
 	item.Title = f["Title"][0]
 	item.SellPoint = f["SellPoint"][0]

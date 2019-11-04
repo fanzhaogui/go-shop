@@ -10,15 +10,15 @@
         $('#item_table').datagrid({
             url: '/showItem',
             columns: [[
-                {field: 'id', title: '商品ID', width: 100},
-                {field: 'title', title: '商品标题', width: 100},
-                {field: 'category_name', title: '叶子类目', width: 100},
-                {field: 'sell_point', title: '卖点', width: 100},
-                {field: 'price', title: '价格', width: 100},
-                {field: 'num', title: '库存数量', width: 100},
-                {field: 'barcode', title: '条形码', width: 100},
+                {field: 'Id', title: '商品ID', width: 100},
+                {field: 'Title', title: '商品标题', width: 100},
+                {field: 'CategoryName', title: '叶子类目', width: 100},
+                {field: 'SellPoint', title: '卖点', width: 100},
+                {field: 'Price', title: '价格', width: 100},
+                {field: 'Num', title: '库存数量', width: 100},
+                {field: 'Barcode', title: '条形码', width: 100},
                 {
-                    field: 'status', title: '状态', width: 100, formatter: function (value, row, index) {
+                    field: 'Status', title: '状态', width: 100, formatter: function (value, row, index) {
                         if (value == 1) {
                             return "正常";
                         } else if (value == 2) {
@@ -28,8 +28,8 @@
                         }
                     }
                 },
-                {field: 'created', title: '创建日期', width: 100},
-                {field: 'updated', title: '更新日期', width: 100}
+                {field: 'Created', title: '创建日期', width: 100},
+                {field: 'Updated', title: '更新日期', width: 100}
             ]],
             fitColumns: true,
             striped: true,
@@ -135,7 +135,7 @@
                     } else {
                         var ids = "";
                         for (var i = 0; i < ss.length; i++) {
-                            ids += ss[i].id;
+                            ids += ss[i].Id;
                             if (i < ss.length - 1) {
                                 ids += ",";
                             }
@@ -170,7 +170,7 @@
                     } else {
                         var ids = "";
                         for (var i = 0; i < ss.length; i++) {
-                            ids += ss[i].id;
+                            ids += ss[i].Id;
                             if (i < ss.length - 1) {
                                 ids += ",";
                             }
@@ -205,7 +205,7 @@
                     } else {
                         var ids = "";
                         for (var i = 0; i < ss.length; i++) {
-                            ids += ss[i].id;
+                            ids += ss[i].Id;
                             if (i < ss.length - 1) {
                                 ids += ",";
                             }
@@ -236,5 +236,6 @@
     })
 </script>
 <table id="item_table"></table>
+<div id="item_dialog"></div>
 </body>
 </html>

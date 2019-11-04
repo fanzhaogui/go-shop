@@ -8,4 +8,5 @@ var (
 	HEADER_CONTENT_TYPE string = "Content-Type"
 	JSON_HEADER string = "application/json;charset=utf-8"
 	CurrentPath string = "http://localhost:8088/"
+	UPLOAD_IMAGE_BASE string = "static/images/"
 )

@@ -46,6 +46,9 @@ func main() {
 	item.ItemHandler()
 	// 类目
 	cat.CatHandler()
+	// 规格参数
+
+	// 商品规格参数
 
 	fmt.Println("http service start: 127.0.0.1:8088")
 	http.ListenAndServe(":8088", commons.Router)
