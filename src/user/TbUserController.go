@@ -22,7 +22,10 @@ func loginController(w http.ResponseWriter, r *http.Request)  {
 	fmt.Println("do login: ", un, pwd)
 
 	// 数据库密码需要加密？ 查询是否要携带上密码
-	re := LoginService(un, pwd)
+	hexPws := commons.MD5(pwd)
+	fmt.Println(hexPws)
+	re := LoginService(un, hexPws)
+
 	// 把结构体转为json数据
 	b, _ := json.Marshal(re)
 

@@ -9,6 +9,7 @@ import (
 	"shop/src/item"
 	"fmt"
 	"shop/src/item/cat"
+	"shop/src/item/param"
 )
 
 // 显示登入页面
@@ -46,6 +47,9 @@ func main() {
 	item.ItemHandler()
 	// 类目
 	cat.CatHandler()
+
+	param.TbItemParamHandler()
+
 	// 规格参数
 
 	// 商品规格参数

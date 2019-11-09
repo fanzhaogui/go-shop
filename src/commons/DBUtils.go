@@ -30,14 +30,17 @@ func openConnec() (err error) {
 //
 func CloseConn()  {
 	if rows != nil {
+		fmt.Println("rows异常关闭数据库链接，将连接句柄返回连接池！")
 		db.Close()
 	}
 
 	if stmt != nil {
+		fmt.Println("stmt异常关闭数据库链接，将连接句柄返回连接池！")
 		stmt.Close()
 	}
 
 	if db != nil {
+		fmt.Println("db异常关闭数据库链接，将连接句柄返回连接池！")
 		db.Close()
 	}
 }
@@ -93,5 +96,6 @@ func Dql(sql string, args ...interface{}) (*sql.Rows, error) {
 		fmt.Println("执行DML时出错，执行SQL，err:", err)
 		return nil, err
 	}
+	fmt.Println("查询-返回Rows")
 	return rows, nil
 }

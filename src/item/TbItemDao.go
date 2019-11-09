@@ -83,10 +83,26 @@ func insertItemDao(t TbItem) int {
 
 }
 
+// 根据ID删除
 func delItemDao(id int) int {
 	count, err := commons.Dml("delete from tb_item where id = ?", id)
 	if err != nil {
 		fmt.Println("del item err: ", err)
 	}
 	return int(count)
+}
+
+// 描述
+func selByIdDao(id int) (t *TbItem) {
+	tr, err := commons.Dql("select * from tb_item where id = ?", id)
+	if err != nil {
+		fmt.Println(err)
+		return nil
+	}
+	// 关于值为NULL的处理
+	if tr.Next() {
+		tr.Scan(&t)
+		return
+	}
+	return nil
 }

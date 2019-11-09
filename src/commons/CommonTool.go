@@ -4,6 +4,8 @@ import (
 	"strconv"
 	"time"
 	"math/rand"
+	"crypto/md5"
+	"encoding/hex"
 )
 
 /**
@@ -30,14 +32,21 @@ func GenerateId() int {
 func GetTimeLayout(layout string) string {
 	switch layout {
 	case "day":
-		return "2019-10-11"
+		return "2019-04-06"
 		break
 	case "hour":
-		return "2019-10-11 12:15"
+		return "2019-10-11 03:02"
 		break
 	case "min":
-		return "2019-10-11 12:15:10"
+		return "2006-01-02 15:04:02"
 		break
 	}
-	return "2019-10-11"
+	return "2006-01-02 15:04:02"
+}
+
+// 返回md5值
+func MD5(text string) string {
+	ctx := md5.New()
+	ctx.Write([]byte(text))
+	return hex.EncodeToString(ctx.Sum(nil))
 }
